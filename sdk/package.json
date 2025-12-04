@@ -1,0 +1,68 @@
+{
+  "name": "@aakit/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for AAKit ERC-4337 smart wallets with passkey support",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.mjs",
+      "require": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./passkey": {
+      "import": "./dist/passkey/index.mjs",
+      "require": "./dist/passkey/index.js",
+      "types": "./dist/passkey/index.d.ts"
+    },
+    "./wallet": {
+      "import": "./dist/wallet/index.mjs",
+      "require": "./dist/wallet/index.js",
+      "types": "./dist/wallet/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [
+    "ethereum",
+    "erc4337",
+    "account-abstraction",
+    "smart-wallet",
+    "passkey",
+    "webauthn",
+    "wallet",
+    "sdk"
+  ],
+  "author": "AAKit Team",
+  "license": "MIT",
+  "dependencies": {
+    "viem": "^2.7.0",
+    "abitype": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "tsup": "^8.0.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ]
+}
