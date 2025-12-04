@@ -22,9 +22,12 @@ contract AAKitWalletTest is BaseTest {
         wallet = createWallet(owner);
         receiver = makeAddr("receiver");
         
-        // Fund wallet
-        vm.deal(address(wallet), 10 ether);
-        fundWallet(address(wallet), 1 ether);
+        // Fund wallet (11 ether total: 10 for transactions + 1 for EntryPoint deposit)
+        vm.deal(address(wallet), 11 ether);
+        
+        // Deposit 1 ether to EntryPoint (without overwriting balance)
+        vm.prank(address(wallet));
+        entryPoint.depositTo{value: 1 ether}(address(wallet));
     }
 
     // ============ Initialization Tests ============

@@ -381,10 +381,11 @@ contract AAKitWallet is
     // ============ MultiOwnable Overrides ============
 
     /**
-     * @notice Check if caller is owner
+     * @notice Check if caller is owner or self
+     * @dev Allows wallet to call owner-restricted functions when executing via EntryPoint
      */
     function _checkOwner() internal view override(ERC4337Account, MultiOwnable) {
-        if (!isOwnerAddress(msg.sender)) {
+        if (!isOwnerAddress(msg.sender) && msg.sender != address(this)) {
             revert UnauthorizedCaller();
         }
     }

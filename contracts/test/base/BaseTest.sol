@@ -101,11 +101,9 @@ abstract contract BaseTest is Test {
         uint256 privateKey
     ) internal view returns (PackedUserOperation memory) {
         bytes32 userOpHash = entryPoint.getUserOpHash(userOp);
-        bytes32 ethSignedHash = keccak256(
-            abi.encodePacked("\x19Ethereum Signed Message:\n32", userOpHash)
-        );
         
-        (uint8 v, bytes32 r, bytes32 s) = vm.sign(privateKey, ethSignedHash);
+        // Sign the userOpHash directly (no EIP-191 wrapper)
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(privateKey, userOpHash);
         bytes memory signature = abi.encodePacked(r, s, v);
         
         userOp.signature = abi.encode(uint8(0), signature);
