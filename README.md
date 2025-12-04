@@ -46,13 +46,57 @@ aakit/
 
 ## Quick Start
 
-### Prerequisites
+### Installation
 
-- [Foundry](https://getfoundry.sh/)
-- Node.js v18+
-- Git
+```bash
+npm install @aakit/sdk viem
+```
 
-### Install Dependencies
+### Create a Passkey Wallet
+
+```typescript
+import { createAAKitWallet, createPasskey } from '@aakit/sdk'
+import { sepolia } from 'viem/chains'
+
+// 1. Create passkey with biometric auth
+const passkey = await createPasskey({
+  userId: 'user@example.com',
+  userName: 'Alice',
+  rpName: 'My DApp',
+  rpId: 'example.com',
+})
+
+// 2. Create smart wallet
+const wallet = createAAKitWallet({
+  factory: '0x...', // AAKitFactory address
+  entryPoint: '0x0000000071727De22E5E9d8BAf0edAc6f37da032',
+  bundlerUrl: 'https://bundler.example.com',
+  chain: sepolia,
+  owner: { type: 'passkey', credential: passkey },
+})
+
+// 3. Send transaction
+const result = await wallet.sendTransaction({
+  to: '0x...',
+  value: parseEther('0.1'),
+})
+
+// 4. Wait for confirmation
+const receipt = await result.wait()
+console.log('Transaction successful:', receipt.success)
+```
+
+### Run Demo Wallet
+
+```bash
+cd examples/demo-wallet
+npm install
+npm run dev
+```
+
+Open http://localhost:5173 to see the demo wallet with passkey authentication.
+
+### Development Setup
 
 ```bash
 # Clone the repository
