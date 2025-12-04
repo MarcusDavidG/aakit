@@ -9,20 +9,14 @@ import {IAccount} from "./IERC4337.sol";
  * @notice Main interface for AAKit wallet
  * @dev Combines ERC-4337 and ERC-7579 interfaces with custom functionality
  */
-interface IAAKitWallet is IAccount, IERC7579Account {
+interface IAAKitWallet {
     // Events
     event OwnerAdded(bytes indexed owner);
     event OwnerRemoved(bytes indexed owner);
     event WalletInitialized(address indexed entryPoint);
 
     // Errors
-    error InvalidOwner();
-    error OwnerAlreadyExists();
-    error OwnerDoesNotExist();
-    error InvalidSignature();
-    error InvalidNonceKey(uint256 key);
     error UnauthorizedCaller();
-    error ExecutionFailed();
 
     /**
      * @notice Initialize the wallet
@@ -81,10 +75,4 @@ interface IAAKitWallet is IAccount, IERC7579Account {
      * @return Implementation contract address
      */
     function implementation() external view returns (address);
-
-    /**
-     * @notice Get EntryPoint address
-     * @return EntryPoint contract address
-     */
-    function entryPoint() external view returns (address);
 }
