@@ -6,6 +6,7 @@
 // Core exports
 export * from './core'
 export * from './passkey'
+export * from './wallet'
 export * from './types/userOperation'
 
 // Version
