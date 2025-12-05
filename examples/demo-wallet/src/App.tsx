@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { sepolia } from 'viem/chains'
-import { isWebAuthnSupported } from '@aakit/sdk/passkey'
+import { isWebAuthnSupported, type PasskeyCredential } from '@aakit/sdk'
 import { PasskeySetup } from './components/PasskeySetup'
 import { WalletDashboard } from './components/WalletDashboard'
 import { CONTRACTS, BUNDLER_URL } from './config'
-import type { PasskeyCredential } from '@aakit/sdk/passkey'
 
 function App() {
   const [passkey, setPasskey] = useState<PasskeyCredential | null>(null)

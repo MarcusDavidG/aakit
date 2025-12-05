@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { createPasskey } from '@aakit/sdk/passkey'
-import type { PasskeyCredential } from '@aakit/sdk/passkey'
+import { createPasskey, type PasskeyCredential } from '@aakit/sdk'
 
 interface PasskeySetupProps {
   onPasskeyCreated: (passkey: PasskeyCredential) => void
