@@ -3,7 +3,7 @@
  * @description Functions for creating and authenticating with passkeys
  */
 
-import { toHex, fromBytes, bytesToHex } from 'viem'
+import { bytesToHex } from 'viem'
 import type {
   PasskeyCredential,
   PasskeyCreationOptions,
@@ -50,7 +50,7 @@ export async function createPasskey(
 
   const credential = await navigator.credentials.create({
     publicKey: {
-      challenge,
+      challenge: challenge as BufferSource,
       rp: {
         name: rpName,
         id: rpId,
@@ -117,7 +117,7 @@ export async function authenticateWithPasskey(
 
   const credential = await navigator.credentials.get({
     publicKey: {
-      challenge,
+      challenge: challenge as BufferSource,
       rpId,
       allowCredentials: credentialId
         ? [

@@ -8,7 +8,7 @@ export default defineConfig({
     'wallet/index': 'src/wallet/index.ts',
   },
   format: ['cjs', 'esm'],
-  dts: true,
+  dts: false, // Disabled for now
   splitting: false,
   sourcemap: true,
   clean: true,

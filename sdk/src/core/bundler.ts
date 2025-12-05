@@ -3,8 +3,8 @@
  * @description Client for interacting with ERC-4337 bundlers
  */
 
-import type { Address, Hex, Transport, Chain, PublicClient } from 'viem'
-import { createPublicClient, http } from 'viem'
+import type { Address, Hex, Transport, Chain } from 'viem'
+// import { http } from 'viem' // Unused for now
 import type { PackedUserOperation, UserOperationReceipt } from '../types/userOperation'
 
 /**
@@ -60,10 +60,10 @@ export interface BundlerMethods {
  * @returns Bundler client with RPC methods
  */
 export function createBundlerClient(config: BundlerConfig): BundlerMethods {
-  const { bundlerUrl, entryPoint } = config
+  const { bundlerUrl } = config
 
-  // Create HTTP transport for bundler
-  const transport = http(bundlerUrl)
+  // Create HTTP transport for bundler (unused for now)
+  // const transport = http(bundlerUrl)
 
   /**
    * Make bundler RPC call

@@ -191,10 +191,13 @@ export function encodeBatchExecution(executions: Execution[]): Hex {
  * @returns Estimated gas values
  */
 export async function estimateUserOperationGas(
-  userOp: PackedUserOperation
+  _userOp: PackedUserOperation
 ): Promise<UserOperationGas> {
   // This would call eth_estimateUserOperationGas via bundler
   // For now, return defaults
+  // Avoid unused parameter warning
+  void _userOp
+  
   return {
     callGasLimit: 100_000n,
     verificationGasLimit: 100_000n,
@@ -213,20 +216,25 @@ export async function estimateUserOperationGas(
  */
 export function getUserOperationHash(
   userOp: PackedUserOperation,
-  entryPoint: Address,
-  chainId: number
+  _entryPoint: Address,
+  _chainId: number
 ): Hex {
   // This would compute the actual hash used by EntryPoint
   // Simplified for now
-  const packed = encodeAbiParameters(
-    [
-      { type: 'address', name: 'sender' },
-      { type: 'uint256', name: 'nonce' },
-      { type: 'bytes32', name: 'initCodeHash' },
-      { type: 'bytes32', name: 'callDataHash' },
-    ],
-    [userOp.sender, userOp.nonce, toHex(0), toHex(0)]
-  )
+  void userOp
+  void _entryPoint
+  void _chainId
+  
+  // TODO: Implement proper hash calculation
+  // const packed = encodeAbiParameters(
+  //   [
+  //     { type: 'address', name: 'sender' },
+  //     { type: 'uint256', name: 'nonce' },
+  //     { type: 'bytes32', name: 'initCodeHash' },
+  //     { type: 'bytes32', name: 'callDataHash' },
+  //   ],
+  //   [userOp.sender, userOp.nonce, toHex(0), toHex(0)]
+  // )
 
   return toHex(0) // Placeholder
 }

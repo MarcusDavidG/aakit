@@ -1,0 +1,31 @@
+{
+  "name": "aakit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AAKit - ERC-4337 Smart Wallet Toolkit with Passkey Authentication",
+  "workspaces": [
+    "sdk",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=sdk",
+    "build:sdk": "npm run build --workspace=sdk",
+    "dev:demo-wallet": "npm run dev --workspace=examples/demo-wallet",
+    "dev:nft-minter": "npm run dev --workspace=examples/nft-minter",
+    "test": "npm run test --workspace=sdk"
+  },
+  "keywords": [
+    "ethereum",
+    "erc4337",
+    "account-abstraction",
+    "smart-wallet",
+    "passkey",
+    "webauthn"
+  ],
+  "author": "AAKit Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/aakit"
+  }
+}
