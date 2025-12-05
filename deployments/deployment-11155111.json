@@ -1,0 +1,11 @@
+{
+  "chainId": 11155111,
+  "network": "sepolia",
+  "timestamp": "2025-12-04",
+  "deployer": "0xD484eEa6E1458f5E505136cadC389f0ea3d19626",
+  "entryPoint": "0x0000000071727De22E5E9d8BAf0edAc6f37da032",
+  "walletImplementation": "0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e",
+  "factory": "0xeA1880ea125559e52c4159B00dFc98c70C193D99",
+  "passkeyValidator": "0x8d4158eb053379c8FE007497Bf6bD2be663e5067",
+  "verifyingPaymaster": "0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021"
+}
