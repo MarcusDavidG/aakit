@@ -1,21 +1,11 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "examples/demo-wallet/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "examples/demo-wallet/dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/examples/demo-wallet/dist/$1"
-    }
-  ],
   "buildCommand": "cd sdk && npm install && npm run build && cd ../examples/demo-wallet && npm install && npm run build",
+  "outputDirectory": "examples/demo-wallet/dist",
   "installCommand": "npm install --prefix sdk && npm install --prefix examples/demo-wallet",
-  "framework": null
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
