@@ -1,0 +1,132 @@
+No files changed, compilation skipped
+Traces:
+  [11842450] → new DeployScript@0x9f7cF1d1F558E57ef88a59ac3D47214eF25B6A06
+    └─ ← [Return] 59011 bytes of code
+
+  [10063075] DeployScript::run()
+    ├─ [0] VM::envUint("PRIVATE_KEY") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0xD484eEa6E1458f5E505136cadC389f0ea3d19626
+    ├─ [0] console::log("Deploying from:", 0xD484eEa6E1458f5E505136cadC389f0ea3d19626) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Balance:", 254096475600640797 [2.54e17]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::envAddress("PAYMASTER_SIGNER") [staticcall]
+    │   └─ ← [Revert] vm.envAddress: environment variable "PAYMASTER_SIGNER" not found
+    ├─ [0] VM::envUint("PRIVATE_KEY") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0xD484eEa6E1458f5E505136cadC389f0ea3d19626
+    ├─ [0] VM::envUint("PAYMASTER_SPENDING_CAP") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::startBroadcast(<pk>)
+    │   └─ ← [Return]
+    ├─ [0] console::log("\n=== Deploying PasskeyValidator ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [873107] → new PasskeyValidator@0x8d4158eb053379c8FE007497Bf6bD2be663e5067
+    │   └─ ← [Return] 4361 bytes of code
+    ├─ [0] console::log("PasskeyValidator:", PasskeyValidator: [0x8d4158eb053379c8FE007497Bf6bD2be663e5067]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n=== Deploying AAKitWallet Implementation ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [3406211] → new AAKitWallet@0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e
+    │   └─ ← [Return] 16898 bytes of code
+    ├─ [0] console::log("AAKitWallet Implementation:", AAKitWallet: [0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n=== Deploying AAKitFactory ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [3942850] → new AAKitFactory@0xeA1880ea125559e52c4159B00dFc98c70C193D99
+    │   ├─ [3406211] → new AAKitWallet@0xAa1DEae4EB04CE711F5439545e98B003e78E3778
+    │   │   └─ ← [Return] 16898 bytes of code
+    │   └─ ← [Return] 2493 bytes of code
+    ├─ [0] console::log("AAKitFactory:", AAKitFactory: [0xeA1880ea125559e52c4159B00dFc98c70C193D99]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n=== Deploying VerifyingPaymaster ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [1646949] → new VerifyingPaymaster@0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021
+    │   └─ ← [Return] 7779 bytes of code
+    ├─ [0] console::log("VerifyingPaymaster:", VerifyingPaymaster: [0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n=== Funding Paymaster ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [55] VerifyingPaymaster::receive{value: 50000000000000000}()
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Paymaster funded with:", 50000000000000000 [5e16]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopBroadcast()
+    │   └─ ← [Return]
+    ├─ [0] console::log("\n========================================") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("    AAKit Deployment Summary") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("========================================") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Network:", 11155111 [1.115e7]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("EntryPoint:", 0x0000000071727De22E5E9d8BAf0edAc6f37da032) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("----------------------------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("AAKitWallet Implementation:", AAKitWallet: [0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("AAKitFactory:", AAKitFactory: [0xeA1880ea125559e52c4159B00dFc98c70C193D99]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("PasskeyValidator:", PasskeyValidator: [0x8d4158eb053379c8FE007497Bf6bD2be663e5067]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("VerifyingPaymaster:", VerifyingPaymaster: [0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("========================================\n") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::toString(11155111 [1.115e7]) [staticcall]
+    │   └─ ← [Return] "11155111"
+    ├─ [0] VM::toString(0x0000000071727De22E5E9d8BAf0edAc6f37da032) [staticcall]
+    │   └─ ← [Return] "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+    ├─ [0] VM::toString(AAKitWallet: [0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e]) [staticcall]
+    │   └─ ← [Return] "0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e"
+    ├─ [0] VM::toString(AAKitFactory: [0xeA1880ea125559e52c4159B00dFc98c70C193D99]) [staticcall]
+    │   └─ ← [Return] "0xeA1880ea125559e52c4159B00dFc98c70C193D99"
+    ├─ [0] VM::toString(PasskeyValidator: [0x8d4158eb053379c8FE007497Bf6bD2be663e5067]) [staticcall]
+    │   └─ ← [Return] "0x8d4158eb053379c8FE007497Bf6bD2be663e5067"
+    ├─ [0] VM::toString(VerifyingPaymaster: [0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021]) [staticcall]
+    │   └─ ← [Return] "0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021"
+    ├─ [0] VM::toString(11155111 [1.115e7]) [staticcall]
+    │   └─ ← [Return] "11155111"
+    ├─ [0] VM::writeFile("deployments/deployment-11155111.json", "{\n  \"chainId\": 11155111,\n  \"entryPoint\": \"0x0000000071727De22E5E9d8BAf0edAc6f37da032\",\n  \"walletImplementation\": \"0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e\",\n  \"factory\": \"0xeA1880ea125559e52c4159B00dFc98c70C193D99\",\n  \"passkeyValidator\": \"0x8d4158eb053379c8FE007497Bf6bD2be663e5067\",\n  \"verifyingPaymaster\": \"0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021\"\n}")
+    │   └─ ← [Revert] vm.writeFile: the path deployments/deployment-11155111.json is not allowed to be accessed for write operations
+    └─ ← [Revert] vm.writeFile: the path deployments/deployment-11155111.json is not allowed to be accessed for write operations
+
+
+
+== Logs ==
+  Deploying from: 0xD484eEa6E1458f5E505136cadC389f0ea3d19626
+  Balance: 254096475600640797
+  
+=== Deploying PasskeyValidator ===
+  PasskeyValidator: 0x8d4158eb053379c8FE007497Bf6bD2be663e5067
+  
+=== Deploying AAKitWallet Implementation ===
+  AAKitWallet Implementation: 0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e
+  
+=== Deploying AAKitFactory ===
+  AAKitFactory: 0xeA1880ea125559e52c4159B00dFc98c70C193D99
+  
+=== Deploying VerifyingPaymaster ===
+  VerifyingPaymaster: 0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021
+  
+=== Funding Paymaster ===
+  Paymaster funded with: 50000000000000000
+  
+========================================
+      AAKit Deployment Summary
+  ========================================
+  Network: 11155111
+  EntryPoint: 0x0000000071727De22E5E9d8BAf0edAc6f37da032
+  ----------------------------------------
+  AAKitWallet Implementation: 0x5a40FC81Ccd07aDFCC77eFD59815B94CEc985E1e
+  AAKitFactory: 0xeA1880ea125559e52c4159B00dFc98c70C193D99
+  PasskeyValidator: 0x8d4158eb053379c8FE007497Bf6bD2be663e5067
+  VerifyingPaymaster: 0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021
+  ========================================
+
+Error: script failed: vm.writeFile: the path deployments/deployment-11155111.json is not allowed to be accessed for write operations

@@ -51,8 +51,7 @@ contract DeployScript is Script {
         // 3. Deploy AAKitFactory
         console2.log("\n=== Deploying AAKitFactory ===");
         AAKitFactory factory = new AAKitFactory(
-            address(walletImplementation),
-            config.entryPoint
+            address(walletImplementation)
         );
         console2.log("AAKitFactory:", address(factory));
         
