@@ -1,6 +1,7 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "cd ../../sdk && npm install && npm run build && cd ../examples/demo-wallet && npm install && npm run build",
   "outputDirectory": "dist",
+  "installCommand": "cd ../../sdk && npm install && cd ../examples/demo-wallet && npm install",
   "framework": "vite",
   "rewrites": [
     {
