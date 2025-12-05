@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { formatEther, parseEther, type Address } from 'viem'
-import { createAAKitWallet } from '@aakit/sdk/wallet'
-import type { PasskeyCredential } from '@aakit/sdk/passkey'
-import type { AAKitWalletConfig } from '@aakit/sdk/wallet'
+import { createAAKitWallet, type PasskeyCredential, type AAKitWalletConfig } from '@aakit/sdk'
 
 interface WalletDashboardProps {
   passkey: PasskeyCredential
