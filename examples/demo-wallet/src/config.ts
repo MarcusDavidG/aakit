@@ -6,15 +6,15 @@ import { createConfig, http } from 'wagmi'
 import { sepolia } from 'wagmi/chains'
 import type { Address } from 'viem'
 
-// AAKit contract addresses on Sepolia (example)
+// AAKit contract addresses on Sepolia (DEPLOYED!)
 export const CONTRACTS = {
-  entryPoint: '0x0000000071727De22E5E9d8BAf0edAc6f37da032' as Address, // v0.7
-  factory: '0x...' as Address, // Deploy factory first
-  paymaster: '0x...' as Address, // Optional
+  entryPoint: '0x0000000071727De22E5E9d8BAf0edAc6f37da032' as Address, // ERC-4337 v0.7
+  factory: '0xeA1880ea125559e52c4159B00dFc98c70C193D99' as Address,
+  paymaster: '0x30E1f3431b28F53Ca7Aec8CFfEe99c91cF049021' as Address,
 }
 
-// Bundler configuration
-export const BUNDLER_URL = 'https://sepolia.bundler.example.com'
+// Bundler configuration (Pimlico)
+export const BUNDLER_URL = 'https://api.pimlico.io/v2/sepolia/rpc?apikey=pim_igzXAaZfEN844Ht3TWGfhw'
 
 // Wagmi configuration
 export const config = createConfig({
