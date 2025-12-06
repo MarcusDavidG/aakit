@@ -169,38 +169,74 @@ export async function authenticateWithPasskey(
  * @returns Parsed public key
  */
 export function parsePublicKey(publicKeyBytes: ArrayBuffer): ParsedPublicKey {
-  // COSE key format parsing
-  // This is a simplified version - production should use cbor library
   const bytes = new Uint8Array(publicKeyBytes)
-
-  // For P-256, x and y are 32 bytes each
-  // Simplified extraction (assumes specific COSE format)
-  let xOffset = -1
-  let yOffset = -1
-
-  // Find x and y coordinates in COSE structure
-  // Label -2 (x-coordinate) and -3 (y-coordinate)
-  for (let i = 0; i < bytes.length - 33; i++) {
-    if (bytes[i] === 0x21 && xOffset === -1) {
-      // Label -2 encoded as 0x21
-      xOffset = i + 2 // Skip label and size byte
+  
+  // COSE key format is CBOR-encoded
+  // We need to find the x (-2) and y (-3) coordinates
+  // In CBOR, negative integers are encoded as: 0x20 + (value - 1)
+  // So -2 is 0x21 and -3 is 0x22
+  
+  let xCoord: Uint8Array | null = null
+  let yCoord: Uint8Array | null = null
+  
+  let i = 0
+  while (i < bytes.length) {
+    // Look for label -2 (x-coordinate): 0x21
+    if (bytes[i] === 0x21) {
+      i++ // Move past label
+      // Next byte should be 0x58 (byte string) followed by length 0x20 (32 bytes)
+      if (i < bytes.length && bytes[i] === 0x58 && i + 1 < bytes.length && bytes[i + 1] === 0x20) {
+        i += 2 // Skip 0x58 and length
+        if (i + 32 <= bytes.length) {
+          xCoord = bytes.slice(i, i + 32)
+          i += 32
+        }
+      }
+      continue
     }
-    if (bytes[i] === 0x22 && yOffset === -1) {
-      // Label -3 encoded as 0x22
-      yOffset = i + 2
+    
+    // Look for label -3 (y-coordinate): 0x22
+    if (bytes[i] === 0x22) {
+      i++ // Move past label
+      // Next byte should be 0x58 (byte string) followed by length 0x20 (32 bytes)
+      if (i < bytes.length && bytes[i] === 0x58 && i + 1 < bytes.length && bytes[i + 1] === 0x20) {
+        i += 2 // Skip 0x58 and length
+        if (i + 32 <= bytes.length) {
+          yCoord = bytes.slice(i, i + 32)
+          i += 32
+        }
+      }
+      continue
+    }
+    
+    i++
+  }
+  
+  if (!xCoord || !yCoord) {
+    // Fallback: try simple byte search
+    console.warn('Using fallback COSE parsing')
+    const xIndex = bytes.indexOf(0x21)
+    const yIndex = bytes.indexOf(0x22)
+    
+    if (xIndex !== -1 && yIndex !== -1 && xIndex < yIndex) {
+      // Try to extract 32 bytes after markers
+      let xStart = xIndex + 3 // Skip label + type + length
+      let yStart = yIndex + 3
+      
+      if (xStart + 32 <= bytes.length && yStart + 32 <= bytes.length) {
+        xCoord = bytes.slice(xStart, xStart + 32)
+        yCoord = bytes.slice(yStart, yStart + 32)
+      }
     }
   }
-
-  if (xOffset === -1 || yOffset === -1) {
-    throw new Error('Failed to parse public key coordinates')
+  
+  if (!xCoord || !yCoord) {
+    throw new Error('Failed to parse public key coordinates. Raw bytes: ' + bytesToHex(bytes))
   }
-
-  const x = bytes.slice(xOffset, xOffset + 32)
-  const y = bytes.slice(yOffset, yOffset + 32)
 
   return {
-    x,
-    y,
+    x: xCoord,
+    y: yCoord,
     algorithm: -7, // ES256
   }
 }
