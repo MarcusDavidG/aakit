@@ -36,10 +36,13 @@ export function WalletDashboard({ passkey, config }: WalletDashboardProps) {
   const loadWalletInfo = async () => {
     setLoading(true)
     try {
+      console.log('Loading wallet info...')
       const addr = await wallet.getAddress()
+      console.log('Got address:', addr)
       setAddress(addr)
 
       const status = await wallet.getDeploymentStatus()
+      console.log('Deployment status:', status)
       setDeployed(status.deployed)
 
       // TODO: Fetch balance from chain
@@ -47,6 +50,7 @@ export function WalletDashboard({ passkey, config }: WalletDashboardProps) {
       // setBalance(bal)
     } catch (err) {
       console.error('Failed to load wallet info:', err)
+      alert(`Error loading wallet: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally {
       setLoading(false)
     }
@@ -99,7 +103,20 @@ export function WalletDashboard({ passkey, config }: WalletDashboardProps) {
         <div className="wallet-info">
           <div className="info-row">
             <span className="label">Address:</span>
-            <code className="address">{address}</code>
+            <code className="address">
+              {address || 'Loading...'}
+            </code>
+            {address && (
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(address)
+                  alert('Address copied to clipboard!')
+                }}
+                style={{ marginLeft: '10px', padding: '4px 8px', fontSize: '12px' }}
+              >
+                Copy
+              </button>
+            )}
           </div>
 
           <div className="info-row">
