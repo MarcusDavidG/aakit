@@ -3,9 +3,8 @@
  * @description Type definitions for AAKit wallet client
  */
 
-import type { Address, Hex, Chain, PublicClient, WalletClient } from 'viem'
+import type { Address, Hex, Chain, WalletClient } from 'viem'
 import type { PasskeyCredential } from '../passkey/types'
-import type { PackedUserOperation } from '../types/userOperation'
 
 /**
  * AAKit wallet configuration

@@ -20,7 +20,7 @@ export function WalletDashboard({ passkey, config }: WalletDashboardProps) {
 
   const [address, setAddress] = useState<Address | null>(null)
   const [deployed, setDeployed] = useState(false)
-  const [balance, setBalance] = useState<bigint>(0n)
+  const [balance] = useState<bigint>(0n)
   const [loading, setLoading] = useState(true)
 
   // Send transaction form
