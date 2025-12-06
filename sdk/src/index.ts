@@ -7,7 +7,8 @@
 export * from './core'
 export * from './passkey'
 export * from './wallet'
-export * from './types/userOperation'
+// Export only specific types to avoid conflicts
+export type { UserOperationGas } from './types/userOperation'
 
 // Version
 export const VERSION = '0.1.0'
