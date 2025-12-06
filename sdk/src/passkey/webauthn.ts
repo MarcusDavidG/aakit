@@ -171,7 +171,12 @@ export async function authenticateWithPasskey(
 export function parsePublicKey(publicKeyBytes: ArrayBuffer): ParsedPublicKey {
   const bytes = new Uint8Array(publicKeyBytes)
   
-  // COSE key format is CBOR-encoded
+  // Check if this is X.509 SubjectPublicKeyInfo format (starts with 0x30)
+  if (bytes[0] === 0x30) {
+    return parseX509PublicKey(bytes)
+  }
+  
+  // Otherwise, assume COSE key format (CBOR-encoded)
   // We need to find the x (-2) and y (-3) coordinates
   // In CBOR, negative integers are encoded as: 0x20 + (value - 1)
   // So -2 is 0x21 and -3 is 0x22
@@ -237,6 +242,43 @@ export function parsePublicKey(publicKeyBytes: ArrayBuffer): ParsedPublicKey {
   return {
     x: xCoord,
     y: yCoord,
+    algorithm: -7, // ES256
+  }
+}
+
+/**
+ * Parse X.509 SubjectPublicKeyInfo format public key
+ * @param bytes - Public key bytes in X.509 format
+ * @returns Parsed public key
+ */
+function parseX509PublicKey(bytes: Uint8Array): ParsedPublicKey {
+  // X.509 format: SEQUENCE { SEQUENCE { OID, OID }, BIT STRING }
+  // For P-256 uncompressed point, the BIT STRING contains:
+  // 0x04 (uncompressed point marker) + 32 bytes x + 32 bytes y
+  
+  // Find the BIT STRING tag (0x03)
+  let bitStringIndex = -1
+  for (let i = 0; i < bytes.length - 65; i++) {
+    if (bytes[i] === 0x03) {
+      // Next byte is the length, then 0x00 (unused bits), then 0x04 (uncompressed)
+      if (i + 3 < bytes.length && bytes[i + 2] === 0x00 && bytes[i + 3] === 0x04) {
+        bitStringIndex = i + 4 // Skip to after the 0x04 marker
+        break
+      }
+    }
+  }
+  
+  if (bitStringIndex === -1 || bitStringIndex + 64 > bytes.length) {
+    throw new Error('Invalid X.509 public key format')
+  }
+  
+  // Extract x and y coordinates (32 bytes each)
+  const x = bytes.slice(bitStringIndex, bitStringIndex + 32)
+  const y = bytes.slice(bitStringIndex + 32, bitStringIndex + 64)
+  
+  return {
+    x,
+    y,
     algorithm: -7, // ES256
   }
 }
