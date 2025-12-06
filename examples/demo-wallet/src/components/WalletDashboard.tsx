@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { formatEther, parseEther, type Address } from 'viem'
 import { createAAKitWallet, type PasskeyCredential, type AAKitWalletConfig } from '@aakit/sdk'
+import { createPublicClient, http } from 'viem'
+import { sepolia } from 'viem/chains'
 
 interface WalletDashboardProps {
   passkey: PasskeyCredential
@@ -8,9 +10,16 @@ interface WalletDashboardProps {
 }
 
 export function WalletDashboard({ passkey, config }: WalletDashboardProps) {
+  // Create a reliable public client with Infura
+  const publicClient = createPublicClient({
+    chain: sepolia,
+    transport: http('https://sepolia.infura.io/v3/1b98a5f34e8c495d989b39cdb459ae9e'),
+  })
+
   const [wallet] = useState(() =>
     createAAKitWallet({
       ...config,
+      publicClient, // Use our reliable Infura client
       owner: {
         type: 'passkey',
         credential: passkey,

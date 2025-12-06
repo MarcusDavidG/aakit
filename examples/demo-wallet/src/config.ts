@@ -16,10 +16,10 @@ export const CONTRACTS = {
 // Bundler configuration (Pimlico)
 export const BUNDLER_URL = 'https://api.pimlico.io/v2/sepolia/rpc?apikey=pim_igzXAaZfEN844Ht3TWGfhw'
 
-// Wagmi configuration
+// Wagmi configuration with Infura RPC
 export const config = createConfig({
   chains: [sepolia],
   transports: {
-    [sepolia.id]: http(),
+    [sepolia.id]: http('https://sepolia.infura.io/v3/1b98a5f34e8c495d989b39cdb459ae9e'),
   },
 })
